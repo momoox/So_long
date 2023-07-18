@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/28 14:25:57 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/07/17 15:56:03 by mgeisler         ###   ########.fr       */
+/*   Created: 2023/07/11 15:36:15 by mgeisler          #+#    #+#             */
+/*   Updated: 2023/07/11 15:36:46 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	parser(t_struct *mapi)
+void	ft_putstr(char *s)
 {
-	if (valid_map(mapi) != 0 || long_line(mapi) != 0)
-		return (1);
-	else if (map_closed(mapi) != 0)
-		return (1);
-	else if (check_content(mapi) != 0)
-		return (1);
-	pos_player(mapi);
-	if (valid_way(temp_struct(mapi),
-			mapi->player_x, mapi->player_y) != 1)
-		return (write(1, "Error: Impossible to finish level\n", 34));
-	return (0);
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i] != '\0')
+	{
+		write(1, &s[i], 1);
+		i++;
+	}
 }

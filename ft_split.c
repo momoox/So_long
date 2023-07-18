@@ -5,30 +5,102 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/05 15:31:58 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/07/02 17:18:03 by mgeisler         ###   ########.fr       */
+/*   Created: 2023/07/11 13:54:31 by mgeisler          #+#    #+#             */
+/*   Updated: 2023/07/12 19:28:12 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-size_t	count(char const *s, char c)
-{
-	size_t	i;
-	size_t	words;
+// size_t	count(char const *s, char c)
+// {
+// 	size_t	i;
+// 	size_t	words;
 
-	i = 0;
-	words = 0;
-	while (s[i])
-	{
-		if (s[i] != c && (s[i + 1] == 0 || s[i + 1] == c))
-			words++;
-		i++;
-	}
-	return (words);
-}
+// 	i = 0;
+// 	words = 0;
+// 	while (s[i])
+// 	{
+// 		if (s[i] != c && (s[i + 1] == 0 || s[i + 1] == c))
+// 			words++;
+// 		i++;
+// 	}
+// 	return (words);
+// }
 
-size_t	lenword(const char *s, size_t i, char c)
+// size_t	lenword(const char *s, size_t i, char c)
+// {
+// 	size_t	len;
+
+// 	len = 0;
+// 	while (s[i] == c)
+// 		i++;
+// 	while (s[i] != c && s[i])
+// 	{
+// 		len++;
+// 		i++;
+// 	}
+// 	return (len);
+// }
+
+// char	*cpyword(const char *s, size_t *i, char c, size_t len)
+// {
+// 	char	*str;
+// 	size_t	u;
+
+// 	u = 0;
+// 	while (s[*i] == c)
+// 		(*i)++;
+// 	str = malloc(sizeof(char) * (len + 1));
+// 	if (!str)
+// 		return (NULL);
+// 	while (len)
+// 	{
+// 		str[u++] = s[(*i)++];
+// 		len--;
+// 	}
+// 	str[u] = '\0';
+// 	return (str);
+// }
+
+// char	**freeall(char **tab)
+// {
+// 	size_t	j;
+
+// 	j = 0;
+// 	while (tab[j])
+// 	{
+// 		free(tab[j]);
+// 		j++;
+// 	}
+// 	free(tab);
+// 	return (NULL);
+// }
+
+// char	**ft_split(const char *s, char c)
+// {
+// 	size_t		i;
+// 	size_t		j;
+// 	char		**tab;
+
+// 	i = 0;
+// 	j = 0;
+// 	if (!s)
+// 		return (0);
+// 	tab = malloc(sizeof(char *) * (count(s, c)) + 1);
+// 	if (!tab)
+// 		return (0);
+// 	while (j < count(s, c))
+// 	{
+// 		tab[j++] = cpyword(s, &i, c, lenword(s, i, c));
+// 		if (!tab[j - 1])
+// 			return (freeall(tab));
+// 	}
+// 	tab[j] = NULL;
+// 	return (tab);
+// }
+
+static size_t	nextlen(const char *s, size_t i, char c)
 {
 	size_t	len;
 
@@ -43,35 +115,51 @@ size_t	lenword(const char *s, size_t i, char c)
 	return (len);
 }
 
-char	*cpyword(const char *s, size_t *i, char c, size_t len)
+static size_t	wordcount(const char *s, char c)
 {
-	char	*str;
-	size_t	u;
+	size_t	count;
+	size_t	i;
 
-	u = 0;
+	i = 1;
+	count = 0;
+	while (s[i - 1])
+	{
+		if (i != 0 && s[i - 1] != c && (s[i] == c || !s[i]))
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+static char	*nextword(const char *s, size_t *i, char c, size_t len)
+{
+	char	*cpy;
+	size_t	y;
+
+	y = 0;
 	while (s[*i] == c)
 		(*i)++;
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str)
+	cpy = malloc(sizeof(char) * (len + 1));
+	if (!cpy)
 		return (NULL);
 	while (len)
 	{
-		str[u++] = s[(*i)++];
+		cpy[y++] = s[(*i)++];
 		len--;
 	}
-	str[u] = '\0';
-	return (str);
+	cpy[y] = '\0';
+	return (cpy);
 }
 
-char	**freeall(char **tab)
+static char	**freeall_split(char **tab, size_t indice)
 {
-	size_t	j;
+	size_t	y;
 
-	j = 0;
-	while (tab[j])
+	y = 0;
+	while (y <= indice)
 	{
-		free(tab[j]);
-		j++;
+		free(tab[y]);
+		y++;
 	}
 	free(tab);
 	return (NULL);
@@ -79,23 +167,24 @@ char	**freeall(char **tab)
 
 char	**ft_split(const char *s, char c)
 {
-	size_t		i;
-	size_t		j;
-	char		**tab;
+	size_t	i;
+	size_t	y;
+	char	**tab;
 
 	i = 0;
-	j = 0;
+	y = 0;
 	if (!s)
-		return (0);
-	tab = malloc(sizeof(char *) * (count(s, c) + 1));
+		return (NULL);
+	tab = malloc(sizeof(char *) * (wordcount(s, c) + 1));
 	if (!tab)
-		return (0);
-	while (j < count(s, c))
+		return (NULL);
+	while (y < wordcount(s, c))
 	{
-		tab[j++] = cpyword(s, &i, c, lenword(s, i, c));
-		if (!tab[j - 1])
-			return (freeall(tab));
+		tab[y] = nextword(s, &i, c, nextlen(s, i, c));
+		if (!tab[y])
+			return (freeall_split(tab, y));
+		y++;
 	}
-	tab[j] = 0;
+	tab[wordcount(s, c)] = NULL;
 	return (tab);
 }

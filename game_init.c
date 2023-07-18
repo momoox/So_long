@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   img_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/28 14:25:57 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/07/17 15:56:03 by mgeisler         ###   ########.fr       */
+/*   Created: 2023/07/10 19:55:34 by mgeisler          #+#    #+#             */
+/*   Updated: 2023/07/15 17:49:42 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	parser(t_struct *mapi)
+void	render_init(t_struct *mapi)
 {
-	if (valid_map(mapi) != 0 || long_line(mapi) != 0)
-		return (1);
-	else if (map_closed(mapi) != 0)
-		return (1);
-	else if (check_content(mapi) != 0)
-		return (1);
-	pos_player(mapi);
-	if (valid_way(temp_struct(mapi),
-			mapi->player_x, mapi->player_y) != 1)
-		return (write(1, "Error: Impossible to finish level\n", 34));
-	return (0);
+	pos_portal(mapi);
+	pos_enemy(mapi);
+	mapi->mlx = mlx_init(mapi->length * 64, mapi->width * 64, "so_long", true);
+	render_map(mapi);
+	mlx_loop_hook(mapi->mlx, &player_anim, mapi);
+	mlx_loop_hook(mapi->mlx, &enemy_anim, mapi);
+	mlx_loop_hook(mapi->mlx, &portal_anim, mapi);
+	mlx_key_hook(mapi->mlx, &keyb, mapi);
+	mlx_loop(mapi->mlx);
 }

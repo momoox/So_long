@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 16:43:38 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/07/02 17:51:16 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:37:25 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	while (s1[i])
 	{
-		str[i] = (char)s1[i];
+		str[i] = s1[i];
 		i++;
 	}
 	while (s2[j])
-		str[i++] = (char)s2[j++];
+		str[i++] = s2[j++];
+	free(s1);
+	free(s2);
 	str[i] = '\0';
 	return (str);
 }

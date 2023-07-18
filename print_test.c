@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 15:59:11 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/07/02 17:51:25 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:25:36 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_map(t_struct	*mapi)
 	int		i;
 
 	i = 0;
-	while (i <= 6)
+	while (i <= mapi->width)
 	{
 		printf("%s\n", mapi->map[i]);
 		i++;

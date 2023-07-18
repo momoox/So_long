@@ -6,19 +6,19 @@
 #    By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/27 22:16:25 by mgeisler          #+#    #+#              #
-#    Updated: 2023/07/03 19:34:51 by mgeisler         ###   ########.fr        #
+#    Updated: 2023/07/17 16:08:23 by mgeisler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SRCS = so_long.c parser.c init_map.c utils.c print_test.c ft_strjoin.c ft_split.c valid_map.c\
-		playable_map.c \
+SRCS = so_long.c parser.c init_map.c utils.c utils_2.c print_test.c ft_strjoin.c ft_split.c valid_map.c free_all.c\
+		playable_map.c render_map.c load_img.c game_init.c find_pos.c anim.c anim_2.c ft_putstr.c move.c ft_itoa.c\
 		gnl/get_next_line.c gnl/get_next_line_utils.c\
 
 OBJECTS = $(SRCS:.c=.o)
 
-GCC = gcc -Wall -Werror -Wextra -g3
+GCC = gcc -Wall -Werror -Wextra -g3 -fsanitize=address
 
 all : $(NAME)
 

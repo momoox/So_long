@@ -1,0 +1,25 @@
+//parser
+
+-fichier valide = .ber ✅
+-creer la map, la mettre dans un tableau de tableau(parcourir la map, avoir la map dans le prog)✅
+-check map rectangle ✅
+-bon nombre de player(1), collectibes(1 ou +), exit(1), ennemie au choix(bonus) ✅
+-autre character = error ✅
+-open le dossier est si le fd est negatif alors il n'est pas lisible 
+ou faire un read du fd via read(fd, 0, 0) pour voir si il est lisible ✅
+-map faisable (flood_fil) ✅
+-map close pb ✅
+check .ber avant empty file ✅
+-longueur ligne (+1) a check✅
+-free_all fonctionne mal
+-map rectangle en vertical a patch
+
+
+
+//pro tips
+
+check .ber = strlen i + 1 puis decremente (.|b|e|r) si pas ca = erreur 
+creer map, \n donc strjoin a chaque appel gnl puis split au \n pour mettre dans la structure
+
+
+chat faucheuse qui recupere des ames de souris et le portail des enfers et des ennemis anges
