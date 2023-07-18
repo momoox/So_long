@@ -6,7 +6,7 @@
 /*   By: mgeisler <mgeisler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:26:23 by mgeisler          #+#    #+#             */
-/*   Updated: 2023/07/16 19:35:43 by mgeisler         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:28:55 by mgeisler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,6 @@ typedef struct s_struct
 	mlx_image_t		*wall_img;
 	mlx_image_t		*steps_img;
 }					t_struct;
-
-//print_test
-void		print_map(t_struct	*mapi);
 
 // utils
 int			ft_strlen(char *str);
@@ -119,7 +116,7 @@ void		pos_portal(t_struct *mapi);
 void		pos_enemy(t_struct *mapi);
 
 //move
-void 		end(int i);
+void		end(int i);
 void		display_move(t_struct *mapi);
 void		keyb(mlx_key_data_t keydata, void *param);
 void		keyb_2(mlx_key_data_t keydata, void *param);
